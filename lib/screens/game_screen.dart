@@ -62,87 +62,92 @@ class GameScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              children: <Widget>[
-                Expanded(child: BoardWidget(players: provider.players)),
-                const SizedBox(height: 12),
-                Text(
-                  'Turn: ${currentPlayer.name}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 9,
+                    child: BoardWidget(players: provider.players),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Text('Last Dice: ${provider.lastDiceValue}'),
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 84,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: provider.players.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(width: 8),
-                    itemBuilder: (BuildContext context, int index) {
-                      final Player player = provider.players[index];
-                      final bool isCurrent =
-                          index == provider.currentPlayerIndex;
-                      return Container(
-                        width: 132,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: isCurrent
-                              ? const Color(0xFFE3F2FD)
-                              : const Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
+                  const SizedBox(height: 8),
+                  Text(
+                    'Turn: ${currentPlayer.name}',
+                    style: const TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text('Last Dice: ${provider.lastDiceValue}'),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 74,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: provider.players.length,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(width: 8),
+                      itemBuilder: (BuildContext context, int index) {
+                        final Player player = provider.players[index];
+                        final bool isCurrent =
+                            index == provider.currentPlayerIndex;
+                        return Container(
+                          width: 132,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
                             color: isCurrent
-                                ? const Color(0xFF1976D2)
-                                : const Color(0xFFCFD8DC),
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 12,
-                                  height: 12,
-                                  decoration: BoxDecoration(
-                                    color: Color(player.colorValue),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                Expanded(
-                                  child: Text(
-                                    player.name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+                                ? const Color(0xFFE3F2FD)
+                                : const Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isCurrent
+                                  ? const Color(0xFF1976D2)
+                                  : const Color(0xFFCFD8DC),
                             ),
-                            const SizedBox(height: 4),
-                            Text('Pos: ${player.position}'),
-                          ],
-                        ),
-                      );
-                    },
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      color: Color(player.colorValue),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Expanded(
+                                    child: Text(
+                                      player.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              Text('Pos: ${player.position}'),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                DiceWidget(
-                  value: provider.lastDiceValue,
-                  isRolling: provider.isRolling,
-                  onTap: provider.rollDice,
-                ),
-                const SizedBox(height: 12),
-              ],
+                  const SizedBox(height: 8),
+                  DiceWidget(
+                    value: provider.lastDiceValue,
+                    isRolling: provider.isRolling,
+                    onTap: provider.rollDice,
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
           ),
         );
