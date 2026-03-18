@@ -22,7 +22,7 @@ class BoardWidget extends StatelessWidget {
           children: <Widget>[
             Positioned.fill(
               child: Opacity(
-                opacity: 0.72,
+                opacity: 0.88,
                 child: SvgPicture.asset(
                   'assets/images/snakes_ladders_bg.svg',
                   fit: BoxFit.cover,
@@ -49,8 +49,8 @@ class BoardWidget extends StatelessWidget {
 
                 final Color tileColor =
                     (index + (index ~/ BoardConfig.boardSize)) % 2 == 0
-                    ? const Color(0x66FFFFFF)
-                    : const Color(0x4DFFFDE7);
+                    ? const Color(0x40FFFFFF)
+                    : const Color(0x33FFFDE7);
 
                 return Container(
                   decoration: BoxDecoration(
@@ -215,16 +215,26 @@ class _SnakesAndLaddersPainter extends CustomPainter {
       ..moveTo(start.dx, start.dy)
       ..quadraticBezierTo(mid.dx + bend.dx, mid.dy + bend.dy, end.dx, end.dy);
 
-    final Paint bodyPaint = Paint()
-      ..color = const Color(0xFF2E7D32)
-      ..strokeWidth = 8
+    final Paint outlinePaint = Paint()
+      ..color = const Color(0xCC000000)
+      ..strokeWidth = 13
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    final Paint headPaint = Paint()..color = const Color(0xFF1B5E20);
+    final Paint bodyPaint = Paint()
+      ..color = const Color(0xFFE53935)
+      ..strokeWidth = 9
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
 
+    final Paint headPaint = Paint()..color = const Color(0xFFB71C1C);
+    final Paint eyePaint = Paint()..color = Colors.white;
+
+    canvas.drawPath(body, outlinePaint);
     canvas.drawPath(body, bodyPaint);
-    canvas.drawCircle(end, 5, headPaint);
+    canvas.drawCircle(end, 7.2, headPaint);
+    canvas.drawCircle(Offset(end.dx - 2.2, end.dy - 1.8), 1.1, eyePaint);
+    canvas.drawCircle(Offset(end.dx + 2.2, end.dy - 1.8), 1.1, eyePaint);
   }
 
   @override

@@ -51,6 +51,22 @@ class GameScreen extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Game'),
             actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: IconButton(
+                  tooltip: provider.soundEnabled
+                      ? 'Sound On (tap to mute)'
+                      : 'Sound Off (tap to unmute)',
+                  icon: Icon(
+                    provider.soundEnabled
+                        ? Icons.volume_up_rounded
+                        : Icons.volume_off_rounded,
+                  ),
+                  onPressed: () {
+                    provider.toggleSound(!provider.soundEnabled);
+                  },
+                ),
+              ),
               IconButton(
                 icon: const Icon(Icons.home),
                 onPressed: () {
